@@ -13,10 +13,10 @@ It's inspired by [`swift-transformers`](https://github.com/huggingface/swift-tra
 import 'package:dart_transformers/transformers.dart';
 
 void testTokenizer() async {
-  final tokenizer = await AutoTokenizer.from(pretrained: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B");
+  final tokenizer = await AutoTokenizer.fromPretrained("deepseek-ai/DeepSeek-R1-Distill-Qwen-7B");
   final messages = [{"role": "user", "content": "Describe the Dart programming language."}];
-  final encoded = await tokenizer.applyChatTemplate(messages: messages);
-  final decoded = tokenizer.decode(tokens: encoded);
+  final encoded = tokenizer.applyChatTemplate(messages);
+  final decoded = tokenizer.decode(encoded);
 }
 ```
 
@@ -25,11 +25,11 @@ void testTokenizer() async {
 import 'package:dart_transformers/transformers.dart';
 
 void testHub() async {
-  final repo = Hub.Repo(id: "mlx-community/Qwen2.5-0.5B-Instruct-2bit-mlx");
+  final repo = Repo(id: "mlx-community/Qwen2.5-0.5B-Instruct-2bit-mlx");
   final filesToDownload = ["config.json", "*.safetensors"];
   final modelDirectory = await Hub.snapshot(
-    from: repo,
-    matching: filesToDownload,
+    repo: repo,
+    globs: filesToDownload,
     progressHandler: (count, progress) {
       print("Download progress: ${progress * 100}%");
     }
