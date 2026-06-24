@@ -1,6 +1,6 @@
 import 'package:dart_transformers/hub/config.dart';
-import 'package:dart_transformers/tokenizers/utils.dart';
 import "package:unorm_dart/unorm_dart.dart" as unorm;
+import 'package:dart_transformers/tokenizers/utils.dart';
 
 abstract class Normalizer {
   String normalize(String text);
@@ -261,7 +261,7 @@ class PrecompiledNormalizer extends Normalizer {
     //   }
     // }
 
-    var result = text.replaceAll(RegExp(r"[\u0001-\u0008\u000B\u000E-\u001F\u007F\u008F\u009F]", unicode: true), ''); // Remove control characters
+    var result = text.replaceAll(RegExp("r[\u0001-\u0008\u000B\u000E-\u001F\u007F\u008F\u009F]", unicode: true), ''); // Remove control characters
     text = text.replaceAll(
         RegExp(r"[\u0009\u000A\u000C\u000D\u00A0\u1680\u2000-\u200F\u2028\u2029\u202F\u205F\u2581\u3000\uFEFF\uFFFD]", unicode: true), '\u0020');
 
